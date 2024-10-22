@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Grid2, Card, CardContent, Typography, CardMedia } from '@mui/material';
+import { Box, Grid2 } from '@mui/material';
 import axios from 'axios';
+import SearchBar from './components/SearchBar'; // Import SearchBar
+import PokemonCard from './components/PokemonCard'; // Import PokemonCard
+import logo from './midea/logo.png'; // Import the logo
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [pokemonData, setPokemonData] = useState(null);
 
-  const handleSearch = async () => {
+  // This function handles the search operation
+  const handleSearch = async (searchTerm) => {
     try {
       const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`);
       setPokemonData(response.data);
@@ -16,43 +19,35 @@ function App() {
   };
 
   return (
-    <div>
-      {/* Search bar and button */}
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, padding: 2 }}>
-        <TextField 
-          label="Search Pokémon" 
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <Button 
-          variant="contained" 
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Box>
+    <div style={{
+      background: 'linear-gradient(180deg, #008EB6 0%, #004816 100%)',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 16,
+    }}>
+      {/* Pokémon logo */}
+      <img 
+        src={logo} 
+        alt="Pokémon Logo" 
+        style={{ 
+          width: '300px', 
+          height: '145px', 
+          opacity: '1',
+          marginBottom: '20px',
+        }} 
+      />
+
+      {/* SearchBar component */}
+      <SearchBar onSearch={handleSearch} />
 
       {/* Pokémon display */}
-      <Grid2 container spacing={3} justifyContent="center">
+      <Grid2 container spacing={3} justifyContent="center" style={{ marginTop: '20px' }}>
         {pokemonData && (
           <Grid2 item xs={12} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={pokemonData.sprites?.front_default}
-                alt={pokemonData.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  #{pokemonData.id}
-                </Typography>
-              </CardContent>
-            </Card>
+            <PokemonCard pokemon={pokemonData} /> {/* Use the PokemonCard component */}
           </Grid2>
         )}
       </Grid2>
@@ -60,4 +55,4 @@ function App() {
   );
 }
 
-export default App; // Ensure default export
+export default App;
