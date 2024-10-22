@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Box, TextField, Button, Grid2, Card, CardContent, Typography, CardMedia } from '@mui/material';
+import axios from 'axios';
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [pokemonData, setPokemonData] = useState(null);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`);
+      setPokemonData(response.data);
+    } catch (error) {
+      console.error('Error fetching Pokémon data:', error);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      {/* Search bar and button */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, padding: 2 }}>
+        <TextField 
+          label="Search Pokémon" 
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Button 
+          variant="contained" 
+          onClick={handleSearch}
         >
-          Learn React
-        </a>
-      </header>
+          Search
+        </Button>
+      </Box>
+
+      {/* Pokémon display */}
+      <Grid2 container spacing={3} justifyContent="center">
+        {pokemonData && (
+          <Grid2 item xs={12} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={pokemonData.sprites?.front_default}
+                alt={pokemonData.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  #{pokemonData.id}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid2>
+        )}
+      </Grid2>
     </div>
   );
 }
 
-export default App;
+export default App; // Ensure default export
