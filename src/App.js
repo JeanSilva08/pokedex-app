@@ -37,7 +37,10 @@ function App() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 16,
+      padding: '8px', // Adjust padding for smaller screens
+      '@media (min-width:600px)': {
+        padding: '16px', // Adjust padding for larger screens
+      },
     }}>
       {/* Pokémon logo */}
       <img 
