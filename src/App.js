@@ -63,10 +63,17 @@ function App() {
         </Grid2>
       )}
 
-      {/* Pokémon display in a 4x4 grid for previously searched Pokémon */}
+      {/* Pokémon display in a responsive grid for previously searched Pokémon */}
       <Grid2 container spacing={3} justifyContent="center" style={{ marginTop: '20px' }}>
         {pokemonDataList.map((pokemon, index) => (
-          <Grid2 item xs={12} sm={6} md={4} lg={3} key={index}>
+          <Grid2 
+            item 
+            xs={12} // Full width on mobile (1 column)
+            sm={6}  // 2 columns on small screens (tablets)
+            md={4}  // 3 columns on medium screens (small desktops)
+            lg={3}  // 4 columns on large screens
+            key={index}
+          >
             <PokemonCard pokemon={pokemon} />
           </Grid2>
         ))}

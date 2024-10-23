@@ -1,0 +1,41 @@
+.pokemon-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    max-width: 200px; /* Control maximum width */
+    transition: transform 0.2s; /* Animation on hover */
+  }
+  
+  .pokemon-card:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  .pokemon-image {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Media Queries for Responsive Card Design */
+  
+  /* Mobile devices */
+  @media only screen and (max-width: 600px) {
+    .pokemon-card {
+      max-width: 90%; /* Allow cards to take more width on mobile */
+    }
+  }
+  
+  /* Tablets */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .pokemon-card {
+      max-width: 45%; /* Two cards in a row on tablet */
+    }
+  }
+  
+  /* Desktops */
+  @media only screen and (min-width: 1025px) {
+    .pokemon-card {
+      max-width: 30%; /* Three cards in a row on desktops */
+    }
+  }
+  
