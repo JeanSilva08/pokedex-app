@@ -1,13 +1,15 @@
+// pokemonService.js
 import axios from 'axios';
 
-// Function to fetch Pokémon data from the API
-export const fetchPokemonData = async (searchTerm) => {
+const API_URL = 'https://pokeapi.co/api/v2/pokemon';
+
+export const fetchPokemon = async () => {
   try {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
-    console.log(response); // Log the response to check if data is being fetched correctly
-    return response.data;  // Return the data
+    const response = await axios.get(API_URL);
+    console.log(response.data); // Log the response
+    return response.data.results; // Ensure you're returning the right data
   } catch (error) {
-    console.error('Error fetching Pokémon data:', error);
-    return null;
+    console.error('Error fetching Pokémon:', error);
+    return []; // Return an empty array on error
   }
 };

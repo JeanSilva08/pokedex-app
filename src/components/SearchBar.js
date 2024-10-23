@@ -26,7 +26,6 @@ const SearchBar = ({ onSearch }) => {
       sx={{
         width: '582px',
         height: '100px',
-        border: '1px solid #0F62C1', // Border styling
         gap: '0px',
         opacity: '1', // Set to 1 to make it visible
         padding: '0 16px', // Add padding for inner alignment
@@ -46,15 +45,22 @@ const SearchBar = ({ onSearch }) => {
         }}
       />
       <Button
-        variant="contained"
-        onClick={handleSearch}
-        sx={{ 
-          marginLeft: 2, 
-          backgroundColor: '#4caf50' 
-        }}
-      >
-        Buscar
-      </Button>
+  variant="outlined" // Use 'outlined' to achieve a border effect
+  onClick={handleSearch}
+  sx={{ 
+    marginLeft: 2, 
+    backgroundColor: '#FFFFFF', // White background
+    color: '#0F62C1', // Blue text color
+    border: '2px solid #0F62C1', // Thick blue border
+    '&:hover': {
+      backgroundColor: '#FFFFFF', // Keep background white on hover
+      border: '2px solid #0F62C1', // Maintain blue border on hover
+    }
+  }}
+>
+  Buscar
+</Button>
+
     </Box>
   );
 };
